@@ -6,6 +6,11 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+const mainPage = require("./templates/main.html");
+const engineerInfo = require("./templates/engineer.html");
+const managerInfo = require("./templates/manager.html");
+const interInfo = require("./templates/intern.html");
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
