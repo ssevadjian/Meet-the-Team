@@ -29,6 +29,7 @@ const addEmployee = () => {
             ]
         }
     ]).then(a => {
+        let employee = new Employee (a.title);
         if(a.title === "Engineer") {
             newEngineer();
         }
@@ -38,6 +39,7 @@ const addEmployee = () => {
         if(a.title === "Intern") {
             newIntern();
         }
+        myTeam.push(employee);
     });
 };
 
