@@ -17,7 +17,7 @@ const myTeam = [];
 // and to create objects for each team member (using the correct classes as blueprints!)
 const addEmployee = () => {
     inquirer
-    prompt([
+    .prompt([
         {
             type: "list",
             message: "What is the employee's job title?",
@@ -29,7 +29,6 @@ const addEmployee = () => {
             ]
         }
     ]).then(a => {
-        let employee = new Employee (a.title);
         if(a.title === "Engineer") {
             newEngineer();
         }
@@ -39,14 +38,13 @@ const addEmployee = () => {
         if(a.title === "Intern") {
             newIntern();
         }
-        addEmployee(employee);
     });
 };
 
 
 const newEngineer = () => {
     inquirer
-    prompt([
+    .prompt([
         {
             type: "input",
             message: "Enter first name of employee:",
@@ -76,7 +74,7 @@ const newEngineer = () => {
 
 const newManager = () => {
     inquirer
-    prompt([
+    .prompt([
         {
             type: "input",
             message: "Enter first name of employee:",
@@ -106,7 +104,7 @@ const newManager = () => {
 
 const newIntern = () => {
     inquirer
-    prompt([
+    .prompt([
         {
             type: "input",
             message: "Enter first name of intern:",
@@ -133,6 +131,8 @@ const newIntern = () => {
         addEmployee();
     });
 };
+
+addEmployee();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
