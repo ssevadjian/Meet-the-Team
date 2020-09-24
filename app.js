@@ -6,11 +6,6 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const mainPage = require("./templates/main.html");
-const engineerInfo = require("./templates/engineer.html");
-const managerInfo = require("./templates/manager.html");
-const interInfo = require("./templates/intern.html");
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -20,6 +15,16 @@ const myTeam = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function app() {
+
+function buildTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR);
+    }
+    fs.writeFileSync(outputPath, render(myTeam), "utf-8");
+}
+
+
 const addEmployee = () => {
     inquirer
     .prompt([
@@ -28,9 +33,9 @@ const addEmployee = () => {
             message: "What is the employee's job title?",
             name: "title",
             choices: [
-                "Engineer",
-                "Manager",
-                "Intern"
+                "Engineer", //take out manager as option, because we start as a manager
+                "Intern",
+                "I don't want to add any other team members"
             ]
         }
     ]).then(a => {
@@ -38,11 +43,12 @@ const addEmployee = () => {
         if(a.title === "Engineer") {
             newEngineer();
         }
-        if(a.title === "Manager") {
-            newManager();
-        }
         if(a.title === "Intern") {
             newIntern();
+        }
+        else {
+            buildTeam();
+            return;
         }
         myTeam.push(employee);
     });
@@ -79,27 +85,27 @@ const newEngineer = () => {
     });
 };
 
-const newManager = () => {
+const createManager = () => {
     inquirer
     .prompt([
         {
             type: "input",
-            message: "Enter first name of employee:",
+            message: "Enter first name of manager:",
             name: "name"
         },
         {
             type: "input",
-            message: "Enter the employee ID:",
+            message: "Enter the manager's employee ID:",
             name: "id"
         },
         {
             type: "input",
-            message: "What is the employee's email address?",
+            message: "What is the manager's email address?",
             name: "email"
         },
         {
             type: "input",
-            message: "What is the employee's contact number?",
+            message: "What is the manager's contact number?",
             name: "phone"
         }
     ]).then(a => {
@@ -138,8 +144,9 @@ const newIntern = () => {
         addEmployee();
     });
 };
-
-addEmployee();
+createManager();
+};
+app();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
