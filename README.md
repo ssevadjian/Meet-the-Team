@@ -14,6 +14,8 @@ Opening the team.html file then displays the added team members.
 
 ## Screenshot
 
+![Screenshot](./assets/myTeam.png)
+
 ## GitHub Repo Link
 
 https://github.com/ssevadjian/Meet-the-Team
